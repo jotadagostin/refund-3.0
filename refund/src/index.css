@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @theme {
   --gray-100: #1f2523;
   --gray-200: #4d5c57;
@@ -7,4 +9,10 @@
   --white: #ffffff;
   --gren-100: #1f8459;
   --gren-200: #2cb178;
+
+  --default-font-family: "Open Sans", sans-serif;
+}
+
+body {
+  font-family: var(--default-font-family);
 }
