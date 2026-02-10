@@ -1,5 +1,11 @@
+import Button from "./components/button";
+
 function App() {
-  return <div className="text-amber-300"></div>;
+  return (
+    <div className="">
+      <Button size="md">Send</Button>
+    </div>
+  );
 }
 
 export default App;
