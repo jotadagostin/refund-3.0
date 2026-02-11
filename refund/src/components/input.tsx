@@ -50,17 +50,16 @@ const inputStyles = tv({
  */
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  size?: "sm" | "md" | "lg"; // Tipagem explícita evita erro no App.tsx
+  size?: "sm" | "md" | "lg"; // Tipagem explícita
 };
 
 /**
  * Componente Input
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, size = "md", className, onFocus, onBlur, ...props }, ref) => {
+  ({ label = "md", className, onFocus, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
-    // Controla estado de focus
     const state = isFocused ? "active" : "default";
 
     const {
@@ -69,7 +68,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       input,
     } = inputStyles({
       state,
-      size,
     });
 
     return (
@@ -78,7 +76,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <input
           ref={ref}
-          className={input({ className })}
+          className={`${input()} ${className ?? ""}`} // ✅ seguro
           onFocus={(e) => {
             setIsFocused(true);
             onFocus?.(e);
