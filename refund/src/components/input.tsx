@@ -1,9 +1,6 @@
 import React from "react";
 import { tv } from "tailwind-variants";
 
-/**
- * Styles com variantes state e size
- */
 const inputStyles = tv({
   slots: {
     container: "flex flex-col gap-2 w-full",
@@ -14,11 +11,12 @@ const inputStyles = tv({
   variants: {
     state: {
       default: {
-        label: "text-gray-500",
-        input: "border-gray-300 text-gray-800 placeholder:text-gray-400",
+        label: "text-[var(--green-100)]",
+        input:
+          "border-gray-300 text-[var(--green-100)] placeholder:text-gray-400",
       },
       active: {
-        label: "text-emerald-600",
+        label: "text-gray-700",
         input: "border-emerald-600 text-gray-800 placeholder:text-gray-400",
       },
     },
@@ -29,11 +27,11 @@ const inputStyles = tv({
         label: "text-[10px]",
       },
       md: {
-        input: "px-4 py-3 text-sm h-10",
+        input: "px-4 py-3 text-sm h-10 ",
         label: "text-xs",
       },
       lg: {
-        input: "px-5 py-4 text-base h-12",
+        input: "px-5 py-4 text-base  h-3",
         label: "text-sm",
       },
     },
@@ -45,19 +43,16 @@ const inputStyles = tv({
   },
 });
 
-/**
- * Tipos
- */
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  size?: "sm" | "md" | "lg"; // Tipagem explícita
+  inputSize?: "sm" | "md" | "lg";
 };
 
-/**
- * Componente Input
- */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label = "md", className, onFocus, onBlur, ...props }, ref) => {
+  (
+    { label = "", inputSize = "md", className, onFocus, onBlur, ...props },
+    ref,
+  ) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     const state = isFocused ? "active" : "default";
@@ -68,6 +63,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       input,
     } = inputStyles({
       state,
+      size: inputSize,
     });
 
     return (

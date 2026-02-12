@@ -7,7 +7,7 @@ function App() {
     <div className="flex flex-col gap-2 p-1">
       <Button size="md">Send</Button>
       <ButtonSearch size="md" />
-      <Input label="Título" placeholder="Placeholder" />
+      <Input label="Title" placeholder="Placeholder" inputSize="lg" />
     </div>
   );
 }
