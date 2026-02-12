@@ -63,11 +63,11 @@ const selectItem = tv({
 });
 
 const options = [
-  "Alimentação",
-  "Hospedagem",
-  "Transporte",
-  "Serviços",
-  "Outros",
+  "Food",
+  "Accommodation",
+  "Transportation",
+  "Services",
+  "Other",
 ];
 
 export function Select() {
@@ -81,7 +81,7 @@ export function Select() {
           open ? "text-(--green-100) font-bold" : "text-(--gray-200)"
         }`}
       >
-        CATEGORIA
+        CATEGORY
       </label>
 
       <button

@@ -1,32 +1,27 @@
-// nav-link.ts
 import { tv } from "tailwind-variants";
+import { NavLink as RouterNavLink } from "react-router-dom";
 
 const navLink = tv({
-  base: [
-    "text-sm",
-    "font-medium",
-    "transition-colors",
-    "duration-200",
-    "cursor-pointer",
-  ],
-
+  base: ["text-sm", "transition-colors", "duration-200"],
   variants: {
-    variant: {
-      default: "text-[var(--gray-200)] hover:text-[var(--green-100)]",
-      active: "text-[var(--green-100)] font-semibold",
+    active: {
+      true: "text-[var(--green-100)] font-semibold",
+      false: "text-[var(--gray-200)] hover:text-[var(--green-100)] font-medium",
     },
-  },
-
-  defaultVariants: {
-    variant: "default",
   },
 });
 
 type NavLinkProps = {
-  variant?: "default" | "active";
+  to: string;
   children: React.ReactNode;
 };
 
-export function NavLink({ variant, children }: NavLinkProps) {
-  return <a className={navLink({ variant })}>{children}</a>;
+export function NavLink({ to, children }: NavLinkProps) {
+  return (
+    <RouterNavLink to={to} end>
+      {({ isActive }) => (
+        <span className={navLink({ active: isActive })}>{children}</span>
+      )}
+    </RouterNavLink>
+  );
 }
