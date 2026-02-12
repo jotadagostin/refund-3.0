@@ -2,6 +2,7 @@ import Button from "./components/button";
 import { ButtonSearch } from "./components/buttonSearch";
 import { Input } from "./components/input";
 import { NavLink } from "./components/navlink";
+import { Select } from "./components/select";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Input label="Title" placeholder="Placeholder" inputSize="lg" />
       <NavLink>Home</NavLink>
       <NavLink variant="active">Home</NavLink>
+      <Select />
     </div>
   );
 }
