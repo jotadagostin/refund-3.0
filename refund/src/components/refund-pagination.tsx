@@ -1,22 +1,32 @@
 interface RefundPaginationProps {
   currentPage: number;
   totalPages: number;
-  onNext: () => void;
-  onPrev: () => void;
+  onPageChange: (page: number) => void;
 }
 
 export function RefundPagination({
   currentPage,
   totalPages,
-  onNext,
-  onPrev,
+  onPageChange,
 }: RefundPaginationProps) {
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center gap-4 mt-6">
       <button
-        onClick={onPrev}
+        onClick={handlePrev}
         disabled={currentPage === 1}
-        className="w-10 h-10 rounded-lg bg-(--green-100) text-white flex items-center justify-center disabled:opacity-50"
+        className="w-10 h-10 rounded-lg bg-(--green-100) hover:bg-(--green-200) text-white flex items-center justify-center disabled:opacity-50 cursor-pointer"
       >
         {"<"}
       </button>
@@ -26,9 +36,9 @@ export function RefundPagination({
       </span>
 
       <button
-        onClick={onNext}
+        onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="w-10 h-10 rounded-lg bg-(--green-100) text-white flex items-center justify-center disabled:opacity-50"
+        className="w-10 h-10 rounded-lg bg-(--green-100) hover:bg-(--green-200) text-white flex items-center justify-center disabled:opacity-50 cursor-pointer"
       >
         {">"}
       </button>

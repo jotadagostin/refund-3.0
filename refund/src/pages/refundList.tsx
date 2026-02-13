@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ButtonSearch } from "../components/buttonSearch";
 import { Input } from "../components/input";
 import MainHeader from "../components/main-header";
@@ -5,6 +6,14 @@ import { RefundItems } from "../components/refund-list";
 import { RefundPagination } from "../components/refund-pagination";
 
 export default function RefundList() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    console.log("Página alterada para:", page);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <MainHeader />
@@ -25,10 +34,9 @@ export default function RefundList() {
             </div>
             <RefundItems />
             <RefundPagination
-              currentPage={1}
-              totalPages={5}
-              onNext={() => {}}
-              onPrev={() => {}}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
             />
           </div>
         </div>

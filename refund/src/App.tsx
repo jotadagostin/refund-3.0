@@ -1,10 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RefundList from "./pages/refundList";
+import { NewRefund } from "./pages/newRefund";
+import { DetailsRefund } from "./pages/detailsRefund";
 
 function App() {
   return (
-    <div className="flex flex-col gap-2 p-1">
-      <RefundList />
-    </div>
+    <Routes>
+      <Route>
+        <Route index element={<RefundList />} />
+        <Route path="/refund/newrefund" element={<NewRefund />} />
+        <Route path="/refund/detailsrefund" element={<DetailsRefund />} />
+      </Route>
+    </Routes>
   );
 }
 
