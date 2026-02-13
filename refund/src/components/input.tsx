@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 
 const inputStyles = tv({
   slots: {
-    container: "flex flex-col gap-2 w-full",
+    container: "flex flex-col  w-full",
     label: "font-medium uppercase tracking-wide transition-colors",
     input: "w-full rounded-md border bg-white outline-none transition-colors",
   },
