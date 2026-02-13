@@ -2,6 +2,7 @@ import { ButtonSearch } from "../components/buttonSearch";
 import { Input } from "../components/input";
 import MainHeader from "../components/main-header";
 import { RefundItems } from "../components/refund-list";
+import { RefundPagination } from "../components/refund-pagination";
 
 export default function RefundList() {
   return (
@@ -23,6 +24,12 @@ export default function RefundList() {
               <ButtonSearch size="sm" />
             </div>
             <RefundItems />
+            <RefundPagination
+              currentPage={1}
+              totalPages={5}
+              onNext={() => {}}
+              onPrev={() => {}}
+            />
           </div>
         </div>
       </section>
