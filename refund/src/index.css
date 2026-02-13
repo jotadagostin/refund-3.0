@@ -22,3 +22,8 @@ body {
   background-color: var(--green-100);
   color: var(--white);
 }
+
+.icon-refund {
+  filter: invert(30%) sepia(50%) saturate(1200%) hue-rotate(100deg)
+    brightness(95%);
+}

@@ -1,6 +1,7 @@
 import { ButtonSearch } from "../components/buttonSearch";
 import { Input } from "../components/input";
 import MainHeader from "../components/main-header";
+import { RefundItems } from "../components/refund-list";
 
 export default function RefundList() {
   return (
@@ -21,6 +22,7 @@ export default function RefundList() {
               />
               <ButtonSearch size="sm" />
             </div>
+            <RefundItems />
           </div>
         </div>
       </section>
