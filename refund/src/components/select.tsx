@@ -4,9 +4,6 @@ import { tv } from "tailwind-variants";
 
 const selectTrigger = tv({
   base: [
-    "w-full",
-    "h-12",
-    "px-4",
     "flex",
     "items-center",
     "justify-between",
@@ -18,6 +15,12 @@ const selectTrigger = tv({
     "bg-white",
   ],
   variants: {
+    size: {
+      default: "w-full h-12 px-4",
+      sm: "h-10 text-sm",
+      md: "w-[262px] h-10 px-4", // 48px = h-12
+      lg: "h-14 text-base",
+    },
     state: {
       default: "border-[var(--gray-300)] text-zinc-500",
       active: "border-[var(--green-100)] ring-emerald-600",
@@ -87,6 +90,7 @@ export function Select() {
       <button
         onClick={() => setOpen(!open)}
         className={selectTrigger({
+          size: "md",
           state: open ? "active" : "default",
           hasValue: !!value,
         })}

@@ -3,20 +3,20 @@ import { tv } from "tailwind-variants";
 
 const inputStyles = tv({
   slots: {
-    container: "flex flex-col  w-full",
+    container: "flex flex-col  w-full gap-2",
     label: "font-medium uppercase tracking-wide transition-colors",
-    input: "w-full rounded-md border bg-white outline-none transition-colors",
+    input: "w-full rounded-md border bg-white outline-none transition-colors ",
   },
 
   variants: {
     state: {
       default: {
-        label: "text-[var(--green-100)]",
+        label: "text-[var(--gray-200)] ",
         input:
-          "border-gray-300 text-[var(--green-100)] placeholder:text-gray-400",
+          "border-gray-300 text-[var(--green-100)] placeholder:text-gray-400 ",
       },
       active: {
-        label: "text-gray-700",
+        label: "text-[var(--green-100)] ",
         input: "border-emerald-600 text-gray-800 placeholder:text-gray-400",
       },
     },
