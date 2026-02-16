@@ -5,6 +5,7 @@ const inputStyles = tv({
   slots: {
     container: "flex flex-col  w-full gap-2",
     label: "font-medium uppercase tracking-wide transition-colors",
+    inputWrapper: "relative w-full",
     input: "w-full rounded-md border bg-white outline-none transition-colors ",
   },
 
@@ -46,11 +47,20 @@ const inputStyles = tv({
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   inputSize?: "sm" | "md" | "lg";
+  rightElement?: React.ReactNode;
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { label = "", inputSize = "md", className, onFocus, onBlur, ...props },
+    {
+      label = "",
+      inputSize = "md",
+      className,
+      rightElement,
+      onFocus,
+      onBlur,
+      ...props
+    },
     ref,
   ) => {
     const [isFocused, setIsFocused] = React.useState(false);
@@ -60,6 +70,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const {
       container,
       label: labelStyle,
+      inputWrapper,
       input,
     } = inputStyles({
       state,
@@ -70,19 +81,26 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className={container()}>
         <label className={labelStyle()}>{label}</label>
 
-        <input
-          ref={ref}
-          className={`${input()} ${className ?? ""}`} // ✅ seguro
-          onFocus={(e) => {
-            setIsFocused(true);
-            onFocus?.(e);
-          }}
-          onBlur={(e) => {
-            setIsFocused(false);
-            onBlur?.(e);
-          }}
-          {...props}
-        />
+        <div className={inputWrapper()}>
+          <input
+            ref={ref}
+            className={`${input()} ${rightElement ? "pr-12" : ""} ${className ?? ""}`}
+            onFocus={(e) => {
+              setIsFocused(true);
+              onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              setIsFocused(false);
+              onBlur?.(e);
+            }}
+            {...props}
+          />
+          {rightElement && (
+            <div className="absolute inset-y-0 right-0 flex items-center">
+              {rightElement}
+            </div>
+          )}
+        </div>
       </div>
     );
   },
