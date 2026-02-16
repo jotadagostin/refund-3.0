@@ -18,7 +18,7 @@ const selectTrigger = tv({
     size: {
       default: "w-full h-12 px-4",
       sm: "h-10 text-sm",
-      md: "w-[262px] h-10 px-4", // 48px = h-12
+      md: "w-[262px] h-10 px-4",
       lg: "h-14 text-base",
     },
     state: {
@@ -36,6 +36,9 @@ const selectTrigger = tv({
 
 const selectContent = tv({
   base: [
+    "absolute",
+    "top-full",
+    "left-0",
     "mt-2",
     "w-full",
     "rounded-lg",
@@ -44,6 +47,7 @@ const selectContent = tv({
     "bg-white",
     "shadow-lg",
     "py-2",
+    "z-50",
   ],
 });
 
@@ -78,7 +82,7 @@ export function Select() {
   const [value, setValue] = useState<string | null>(null);
 
   return (
-    <div className="w-72">
+    <div className="w-72 relative">
       <label
         className={`block text-xs font-medium mb-2 ${
           open ? "text-(--green-100) font-bold" : "text-(--gray-200)"
