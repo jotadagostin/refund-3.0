@@ -3,11 +3,11 @@ import { Input } from "./input";
 
 type InputAmountProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "value" | "onChange"
+  "value"
 > & {
   label: string;
   value?: number; // valor real (ex: 10.5)
-  onChange?: (value: number) => void; // retorna número limpo
+  error?: string;
 };
 
 export const InputAmount = React.forwardRef<HTMLInputElement, InputAmountProps>(
@@ -36,7 +36,8 @@ export const InputAmount = React.forwardRef<HTMLInputElement, InputAmountProps>(
 
       setDisplayValue(formatCurrency(numericValue));
 
-      onChange?.(numericValue);
+      // Chama o onChange padrão do input HTML (compatível com react-hook-form)
+      onChange?.(e);
     }
 
     return (

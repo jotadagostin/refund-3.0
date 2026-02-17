@@ -11,11 +11,12 @@ import { refundSchema, type RefundFormData } from "../schemas/refund.schema";
 
 export function NewRefund() {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RefundFormData>({
+  } = useForm({
     resolver: zodResolver(refundSchema),
   });
 
@@ -63,13 +64,9 @@ export function NewRefund() {
               label="Receipt"
               className=""
               placeholder="file name.pdf"
-              rightElement={
-                <FileUploadButton
-                  size="sm"
-                  {...register("receipt")}
-                  error={errors.receipt?.message}
-                />
-              }
+              {...register("receipt")}
+              error={errors.receipt?.message}
+              rightElement={<FileUploadButton size="sm" />}
             />
           </div>
           <div className="pt-6 pb-6">

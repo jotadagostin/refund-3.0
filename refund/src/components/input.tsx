@@ -20,6 +20,10 @@ const inputStyles = tv({
         label: "text-[var(--green-100)] ",
         input: "border-emerald-600 text-gray-800 placeholder:text-gray-400",
       },
+      error: {
+        label: "text-red-600",
+        input: "border-red-600 text-gray-800 placeholder:text-gray-400",
+      },
     },
 
     size: {
@@ -32,7 +36,7 @@ const inputStyles = tv({
         label: "text-xs",
       },
       lg: {
-        input: "px-5 py-4 text-base  h-3",
+        input: "px-5 py-4 text-base  h-12",
         label: "text-sm",
       },
     },
@@ -60,13 +64,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       rightElement,
       onFocus,
       onBlur,
+      error,
       ...props
     },
     ref,
   ) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
-    const state = isFocused ? "active" : "default";
+    const state = error ? "error" : isFocused ? "active" : "default";
 
     const {
       container,
@@ -85,7 +90,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className={inputWrapper()}>
           <input
             ref={ref}
-            className={`${input()} ${rightElement ? "pr-12" : ""} ${className ?? ""}`}
+            className={`${input()} ${rightElement ? "pr-10" : ""} ${className ?? ""}`}
             onFocus={(e) => {
               setIsFocused(true);
               onFocus?.(e);
@@ -97,9 +102,15 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {rightElement && (
-            <div className="absolute inset-y-0 right-0 flex items-center">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
               {rightElement}
             </div>
+          )}
+
+          {error && (
+            <span className="text-red-500 text-xs absolute mt-1 block">
+              {error}
+            </span>
           )}
         </div>
       </div>

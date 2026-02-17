@@ -77,25 +77,69 @@ const options = [
   "Other",
 ];
 
-export function Select() {
+// interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
+//   error?: string;
+// }
+
+interface SelectProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onClick"
+> {
+  error?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export function Select({
+  error,
+  onClick,
+  name,
+  onChange,
+  ...props
+}: SelectProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
+
+  const handleSelectOption = (option: string) => {
+    setValue(option);
+    setOpen(false);
+
+    // Dispara onChange para react-hook-form
+    if (onChange) {
+      const event = {
+        target: { value: option, name },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(event);
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setOpen(!open);
+    onClick?.(e);
+  };
 
   return (
     <div className="w-72 relative">
       <label
         className={`block text-xs font-medium mb-2 ${
-          open ? "text-(--green-100) font-bold" : "text-(--gray-200)"
+          error
+            ? "text-red-600"
+            : open
+              ? "text-(--green-100) font-bold"
+              : "text-(--gray-200)"
         }`}
       >
         CATEGORY
       </label>
 
+      {/* Input oculto para react-hook-form */}
+      <input type="hidden" name={name} value={value || ""} {...props} />
+
       <button
-        onClick={() => setOpen(!open)}
+        type="button"
+        onClick={handleClick}
         className={selectTrigger({
           size: "md",
-          state: open ? "active" : "default",
+          state: error ? "default" : open ? "active" : "default",
           hasValue: !!value,
         })}
       >
@@ -103,15 +147,14 @@ export function Select() {
         <span>{open ? "▲" : "▼"}</span>
       </button>
 
+      {error && <span className="text-red-500 text-xs mt-1">{error}</span>}
+
       {open && (
         <div className={selectContent()}>
           {options.map((option) => (
             <div
               key={option}
-              onClick={() => {
-                setValue(option);
-                setOpen(false);
-              }}
+              onClick={() => handleSelectOption(option)}
               className={selectItem({
                 selected: value === option,
               })}
