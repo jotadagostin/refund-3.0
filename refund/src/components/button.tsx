@@ -3,6 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 const buttonVariants = tv({
   base: [
+    "w-full",
     "flex items-center justify-center cursor-pointer transition rounded group gap-1",
   ],
 
@@ -13,9 +14,9 @@ const buttonVariants = tv({
     },
 
     size: {
-      md: "w-[352px] h-[48px] px-6 text-sm",
-      sm: "w-[155px] h-[48px] px-4 text-sm",
-      lg: "w-[498px] h-[48px] px-6 text-sm",
+      sm: "h-10 px-4 text-sm",
+      md: "h-12 px-6 text-sm",
+      lg: "h-12 px-8 text-base",
     },
   },
 

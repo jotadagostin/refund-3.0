@@ -24,7 +24,7 @@ export default function ConfirmDialog({
       <div className="flex justify-end gap-8 ">
         <button
           onClick={onCancel}
-          className="text-(--green-100) font-medium cursor-pointer"
+          className="text-(--green-100) font-medium cursor-pointer w-100"
         >
           Cancel
         </button>

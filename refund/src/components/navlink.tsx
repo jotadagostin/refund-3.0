@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 import { NavLink as RouterNavLink } from "react-router-dom";
 
 const navLink = tv({
-  base: ["text-sm", "transition-colors", "duration-200"],
+  base: [" text-sm ", "transition-colors", "duration-200", "whitespace-nowrap"],
   variants: {
     active: {
       true: "text-[var(--green-100)] font-semibold",

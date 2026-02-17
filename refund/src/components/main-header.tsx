@@ -12,7 +12,7 @@ export default function MainHeader() {
           <img src={Logo} alt="Logo" className="w-25  h-8" />
         </button>
       </div>
-      <div className="flex items-center space-x-4 gap-4  pb-2">
+      <div className=" flex items-center space-x-4 gap-4  pb-2 ">
         <NavLink to="/refund/detailsrefund">Refund requests</NavLink>
         <Button size="sm" onClick={() => navigate("/refund/newrefund")}>
           New Request
