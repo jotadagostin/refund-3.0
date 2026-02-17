@@ -24,7 +24,7 @@ export default function RefundList() {
             <h1 className="text-(--gray-100) text-[20px] font-bold mb-6 ">
               Requests
             </h1>
-            <div className="flex items-center gap-2  justify-center pb-5 border-b border-gray-200">
+            <div className="flex items-end gap-2  justify-center pb-5 border-b border-gray-200 ">
               <Input
                 inputSize="md"
                 label=""

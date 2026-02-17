@@ -48,6 +48,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   inputSize?: "sm" | "md" | "lg";
   rightElement?: React.ReactNode;
+  error?: string;
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
