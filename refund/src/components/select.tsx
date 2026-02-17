@@ -1,5 +1,5 @@
 // select.styles.ts
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { tv } from "tailwind-variants";
 
 const selectTrigger = tv({
@@ -77,10 +77,6 @@ const options = [
   "Other",
 ];
 
-// interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
-//   error?: string;
-// }
-
 interface SelectProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onClick"
@@ -98,6 +94,7 @@ export function Select({
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSelectOption = (option: string) => {
     setValue(option);
@@ -117,8 +114,25 @@ export function Select({
     onClick?.(e);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="w-72 relative">
+    <div className="w-72 relative" ref={containerRef}>
       <label
         className={`block text-xs font-medium mb-2 ${
           error
