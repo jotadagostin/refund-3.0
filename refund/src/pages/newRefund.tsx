@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { FileUploadButton } from "../components/fileUploadButton";
 import { Input } from "../components/input";
@@ -6,13 +7,15 @@ import MainHeader from "../components/main-header";
 import { Select } from "../components/select";
 
 export function NewRefund() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col min-h-screen">
       <MainHeader />
       <section className="flex flex-1 items-center justify-center bg-(--gray-400) px-6 py-12">
         <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-sm ">
           <div className="">
-            <h2 className="text-2xl font-bold mb-6 text-(--gray-100)">
+            <h2 className="text-2xl font-bold mb-6 text-(--gray-100) ">
               New refund request
             </h2>
             <p className="text-(--gray-200) text-sm">
@@ -35,7 +38,9 @@ export function NewRefund() {
             />
           </div>
           <div className="pt-6 pb-6">
-            <Button size="lg">Send</Button>
+            <Button size="lg" onClick={() => navigate("/refund/requestsent")}>
+              Send
+            </Button>
           </div>
         </div>
       </section>
