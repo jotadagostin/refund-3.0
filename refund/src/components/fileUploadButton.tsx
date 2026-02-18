@@ -62,6 +62,7 @@ export function FileUploadButton({
         size,
         disabled,
         className,
+        error,
       })}
       {...props}
     >

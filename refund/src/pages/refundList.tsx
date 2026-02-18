@@ -4,10 +4,12 @@ import { Input } from "../components/input";
 import MainHeader from "../components/main-header";
 import { RefundItems } from "../components/refund-list";
 import { RefundPagination } from "../components/refund-pagination";
+import { useRefund } from "../hooks/useRefund";
 
 export default function RefundList() {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
+  const { state } = useRefund();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -32,7 +34,7 @@ export default function RefundList() {
               />
               <ButtonSearch size="sm" />
             </div>
-            <RefundItems />
+            <RefundItems data={state.refunds} />
             <RefundPagination
               currentPage={currentPage}
               totalPages={totalPages}

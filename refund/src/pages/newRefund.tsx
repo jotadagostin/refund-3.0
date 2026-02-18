@@ -8,16 +8,18 @@ import { Select } from "../components/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { refundSchema, type RefundFormData } from "../schemas/refund.schema";
-
 import { useRefund } from "../hooks/useRefund";
+import { useRef } from "react";
 
 export function NewRefund() {
   const navigate = useNavigate();
   const { dispatch } = useRefund();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(refundSchema),
@@ -38,6 +40,10 @@ export function NewRefund() {
     });
 
     navigate("/");
+  }
+
+  function handleFileClick() {
+    fileInputRef.current?.click();
   }
 
   return (
@@ -77,11 +83,26 @@ export function NewRefund() {
           <div className="pt-6 flex items-end ">
             <Input
               label="Receipt"
-              className=""
+              readOnly
               placeholder="file name.pdf"
               {...register("receipt")}
               error={errors.receipt?.message}
-              rightElement={<FileUploadButton size="sm" />}
+              rightElement={
+                <FileUploadButton size="sm" onClick={handleFileClick} />
+              }
+            />
+            <input
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  // atualiza o valor no react-hook-form
+                  setValue("receipt", file.name);
+                }
+              }}
             />
           </div>
           <div className="pt-6 pb-6">
