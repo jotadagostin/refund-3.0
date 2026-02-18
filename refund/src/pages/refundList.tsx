@@ -8,8 +8,23 @@ import { useRefund } from "../hooks/useRefund";
 
 export default function RefundList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const [search, setSearch] = useState("");
   const { state } = useRefund();
+
+  const ITEMS_PER_PAGE = 5;
+
+  const filteredRefunds = state.refunds.filter((refund) =>
+    refund.name.toLowerCase().includes(search.toLowerCase()),
+  );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredRefunds.length / ITEMS_PER_PAGE),
+  );
+
+  const paginatedRefunds = filteredRefunds.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -31,10 +46,24 @@ export default function RefundList() {
                 inputSize="md"
                 label=""
                 placeholder="Search for the name"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
               <ButtonSearch size="sm" />
             </div>
-            <RefundItems data={state.refunds} />
+            {filteredRefunds.length === 0 ? (
+              search ? (
+                <div className="mt-6 text-center text-gray-500">
+                  No results found.
+                </div>
+              ) : (
+                <div className="mt-6 text-center text-gray-500">
+                  No refund requests yet.
+                </div>
+              )
+            ) : (
+              <RefundItems data={paginatedRefunds} />
+            )}
             <RefundPagination
               currentPage={currentPage}
               totalPages={totalPages}

@@ -12,21 +12,31 @@ interface RefundListProps {
   data: Refund[];
 }
 
+// export function RefundItems({ data }: RefundListProps) {
+//   if (data.length === 0) {
+//     return (
+//       <div className="mt-4 text-center text-gray-500">
+//         No refund requests yet.
+//       </div>
+//     );
+//   }
+//   return (
+//     <div className="bg-white rounded-xl  mt-4 overflow-hidden cursor-pointer">
+//       <div className="">
+//         {data.map((item) => (
+//           <RefundItem key={item.id} item={item} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
 export function RefundItems({ data }: RefundListProps) {
-  if (data.length === 0) {
-    return (
-      <div className="mt-4 text-center text-gray-500">
-        No refund requests yet.
-      </div>
-    );
-  }
   return (
-    <div className="bg-white rounded-xl  mt-4 overflow-hidden cursor-pointer">
-      <div className="">
-        {data.map((item) => (
-          <RefundItem key={item.id} item={item} />
-        ))}
-      </div>
+    <div className="bg-white rounded-xl mt-4 overflow-hidden cursor-pointer">
+      {data.map((item) => (
+        <RefundItem key={item.id} item={item} />
+      ))}
     </div>
   );
 }

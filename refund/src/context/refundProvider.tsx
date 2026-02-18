@@ -1,5 +1,21 @@
-import { useReducer, type ReactNode } from "react";
+import { useEffect, useReducer, type ReactNode } from "react";
 import { RefundContext, type Action, type State } from "./refundContext";
+
+const LOCAL_STORAGE_KEY = "refunds";
+
+function loadInitialState(): State {
+  const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+  if (!stored) {
+    return { refunds: [] };
+  }
+
+  try {
+    return { refunds: JSON.parse(stored) };
+  } catch {
+    return { refunds: [] };
+  }
+}
 
 function refundReducer(state: State, action: Action): State {
   switch (action.type) {
@@ -21,9 +37,15 @@ function refundReducer(state: State, action: Action): State {
 }
 
 export function RefundProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(refundReducer, {
-    refunds: [],
-  });
+  const [state, dispatch] = useReducer(
+    refundReducer,
+    undefined,
+    loadInitialState,
+  );
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.refunds));
+  }, [state.refunds]);
 
   return (
     <RefundContext.Provider value={{ state, dispatch }}>
