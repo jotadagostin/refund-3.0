@@ -6,7 +6,7 @@ type InputAmountProps = Omit<
   "value"
 > & {
   label: string;
-  value?: number; // valor real (ex: 10.5)
+  value?: number;
   error?: string;
 };
 

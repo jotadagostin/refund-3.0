@@ -9,8 +9,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { refundSchema, type RefundFormData } from "../schemas/refund.schema";
 
+import { useRefund } from "../hooks/useRefund";
+
 export function NewRefund() {
   const navigate = useNavigate();
+  const { dispatch } = useRefund();
 
   const {
     register,
@@ -21,8 +24,20 @@ export function NewRefund() {
   });
 
   function onSubmit(data: RefundFormData) {
-    console.log(data);
-    navigate("/refund/requestsent");
+    dispatch({
+      type: "ADD",
+      payload: {
+        id: crypto.randomUUID(),
+        name: data.requestName,
+        category: data.category,
+        amount: Number(data.amount),
+        receipt: data.receipt,
+        status: "pending",
+        createdAt: new Date(),
+      },
+    });
+
+    navigate("/");
   }
 
   return (
