@@ -1,8 +1,10 @@
 import Button from "../components/button";
 import MainHeader from "../components/main-header";
 import RequestCheckIcon from "../assets/icons/requestCheck.svg?react";
+import { useNavigate } from "react-router-dom";
 
 export function RequestSent() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col min-h-screen">
       <MainHeader />
@@ -22,7 +24,9 @@ export function RequestSent() {
           </div>
 
           <div className="pt-13 pb-6">
-            <Button size="lg">New solicitation</Button>
+            <Button size="lg" onClick={() => navigate("/refund/newrefund")}>
+              New solicitation
+            </Button>
           </div>
         </div>
       </section>

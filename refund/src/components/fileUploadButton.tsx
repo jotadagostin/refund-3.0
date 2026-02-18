@@ -41,8 +41,7 @@ export type ButtonSearchVariants = VariantProps<typeof buttonSearchVariants>;
 
 interface ButtonSearchProps
   extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonSearchVariants {
-  "arial-label"?: string;
-  error?: string;
+  "aria-label"?: string;
 }
 
 export function FileUploadButton({
@@ -50,7 +49,6 @@ export function FileUploadButton({
   size,
   disabled,
   className,
-  error,
   ...props
 }: ButtonSearchProps) {
   return (
@@ -62,7 +60,6 @@ export function FileUploadButton({
         size,
         disabled,
         className,
-        error,
       })}
       {...props}
     >

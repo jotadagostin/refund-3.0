@@ -39,7 +39,7 @@ export function NewRefund() {
       },
     });
 
-    navigate("/");
+    navigate("/refund/requestsent");
   }
 
   function handleFileClick() {
