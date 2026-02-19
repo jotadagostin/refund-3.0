@@ -31,7 +31,7 @@ export function NewRefund() {
       payload: {
         id: crypto.randomUUID(),
         name: data.requestName,
-        category: data.category,
+        category: data.category.toLowerCase(),
         amount: Number(data.amount),
         receipt: data.receipt,
         status: "pending",

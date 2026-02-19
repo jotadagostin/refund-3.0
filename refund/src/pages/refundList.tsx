@@ -16,6 +16,7 @@ export default function RefundList() {
   const filteredRefunds = state.refunds.filter((refund) =>
     refund.name.toLowerCase().includes(search.toLowerCase()),
   );
+
   const totalPages = Math.max(
     1,
     Math.ceil(filteredRefunds.length / ITEMS_PER_PAGE),

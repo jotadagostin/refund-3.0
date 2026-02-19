@@ -9,12 +9,12 @@ interface RefundItemProps {
 }
 
 const categoryIcons: Record<string, string> = {
-  car: new URL("../assets/icons/car.svg", import.meta.url).href,
-  restaurant: new URL("../assets/icons/forkKnife.svg", import.meta.url).href,
+  food: new URL("../assets/icons/forkKnife.svg", import.meta.url).href,
+  accommodation: new URL("../assets/icons/bed.svg", import.meta.url).href,
+  transportation: new URL("../assets/icons/car.svg", import.meta.url).href,
   tech: new URL("../assets/icons/desktop.svg", import.meta.url).href,
-  tools: new URL("../assets/icons/wrench.svg", import.meta.url).href,
-  receipt: new URL("../assets/icons/receipt.svg", import.meta.url).href,
-  other: new URL("../assets/icons/bad.svg", import.meta.url).href,
+  services: new URL("../assets/icons/wrench.svg", import.meta.url).href,
+  other: new URL("../assets/icons/receipt.svg", import.meta.url).href,
 };
 
 export function RefundItem({ item }: RefundItemProps) {

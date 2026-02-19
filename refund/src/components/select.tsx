@@ -70,11 +70,12 @@ const selectItem = tv({
 });
 
 const options = [
-  "Food",
-  "Accommodation",
-  "Transportation",
-  "Services",
-  "Other",
+  { label: "Food", value: "food" },
+  { label: "Accommodation", value: "accommodation" },
+  { label: "Transportation", value: "transportation" },
+  { label: "Services", value: "services" },
+  { label: "Other", value: "other" },
+  { label: "Tech", value: "tech" },
 ];
 
 interface SelectProps extends Omit<
@@ -96,14 +97,14 @@ export function Select({
   const [value, setValue] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectOption = (option: string) => {
-    setValue(option);
+  const handleSelectOption = (option: { label: string; value: string }) => {
+    setValue(option.value);
     setOpen(false);
 
     // Dispara onChange para react-hook-form
     if (onChange) {
       const event = {
-        target: { value: option, name },
+        target: { value: option.value, name },
       } as React.ChangeEvent<HTMLInputElement>;
       onChange(event);
     }
@@ -157,7 +158,7 @@ export function Select({
           hasValue: !!value,
         })}
       >
-        {value ?? "Selecione"}
+        {options.find((option) => option.value === value)?.label ?? "Select"}
         <span>{open ? "▲" : "▼"}</span>
       </button>
 
@@ -167,14 +168,13 @@ export function Select({
         <div className={selectContent()}>
           {options.map((option) => (
             <div
-              key={option}
+              key={option.value}
               onClick={() => handleSelectOption(option)}
               className={selectItem({
-                selected: value === option,
+                selected: value === option.value,
               })}
             >
-              {option}
-              {value === option && <span>✔</span>}
+              {option.label}
             </div>
           ))}
         </div>
