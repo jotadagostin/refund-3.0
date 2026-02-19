@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 interface RefundItemProps {
   item: {
     id: string;
@@ -19,9 +21,13 @@ const categoryIcons: Record<string, string> = {
 
 export function RefundItem({ item }: RefundItemProps) {
   const iconUrl = categoryIcons[item.category] || categoryIcons.other;
+  const navigate = useNavigate();
 
   return (
-    <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 rounded-lg transition-colors">
+    <div
+      onClick={() => navigate(`/refund/${item.id}`)}
+      className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 rounded-lg transition-colors"
+    >
       {/* LADO ESQUERDO */}
       <div className="flex items-center gap-4 flex-1">
         {/* Ícone */}

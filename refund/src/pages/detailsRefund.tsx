@@ -7,9 +7,15 @@ import { Select } from "../components/select";
 import DownloadReceipt from "../assets/icons/downloadReceipt.svg?react";
 import { useState } from "react";
 import ConfirmDialog from "../components/ui/confirmDialog";
+import { useParams } from "react-router-dom";
+import { useRefund } from "../hooks/useRefund";
 
 export function DetailsRefund() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const { id } = useParams();
+  const { state, dispatch } = useRefund();
+
+  const refund = state.refunds.find((r) => r.id === id);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -18,18 +24,18 @@ export function DetailsRefund() {
         <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-sm ">
           <div className="">
             <h2 className="text-2xl font-bold mb-6 text-(--gray-100)">
-              New refund request
+              Refund request
             </h2>
             <p className="text-(--gray-200) text-sm">
               Expense details for requesting reimbursement.
             </p>
           </div>
           <div className="pt-10 ">
-            <Input label="Request name" />
+            <Input label="Request name" value={refund?.name || ""} readOnly />
           </div>
           <div className="flex gap-4 pt-12">
-            <Select />
-            <InputAmount label="Amount" />
+            <Select value={refund?.category} />
+            <InputAmount label="Amount" value={refund?.amount || 0} readOnly />
           </div>
           <div className="pt-8 flex items-center justify-center gap-2">
             <DownloadReceipt />
@@ -48,7 +54,9 @@ export function DetailsRefund() {
         description="Are you sure you want to delete this refund request?"
         onCancel={() => setOpenDeleteModal(false)}
         onConfirm={() => {
-          console.log("delete confirmed");
+          if (id) {
+            dispatch({ type: "DELETE", payload: id });
+          }
           setOpenDeleteModal(false);
         }}
       />

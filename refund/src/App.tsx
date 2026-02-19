@@ -10,7 +10,7 @@ function App() {
       <Route>
         <Route index element={<RefundList />} />
         <Route path="/refund/newrefund" element={<NewRefund />} />
-        <Route path="/refund/detailsrefund" element={<DetailsRefund />} />
+        <Route path="/refund/:id" element={<DetailsRefund />} />
         <Route path="/refund/requestsent" element={<RequestSent />} />
       </Route>
     </Routes>
