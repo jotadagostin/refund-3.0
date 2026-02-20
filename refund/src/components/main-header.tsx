@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/images/Logo.svg";
 import Button from "./button";
-import { NavLink } from "./NavLink";
+import { NavLink } from "./navlink";
 
 export default function MainHeader() {
   const navigate = useNavigate();

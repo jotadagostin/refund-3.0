@@ -2,7 +2,7 @@ import Button from "../components/button";
 import { Input } from "../components/input";
 import { InputAmount } from "../components/inputAmount";
 import MainHeader from "../components/main-header";
-import { NavLink } from "../components/NavLink";
+import { NavLink } from "../components/navLink";
 import { Select } from "../components/select";
 import DownloadReceipt from "../assets/icons/downloadReceipt.svg?react";
 import { useState } from "react";
