@@ -2,13 +2,14 @@ import Button from "../components/button";
 import { Input } from "../components/input";
 import { InputAmount } from "../components/inputAmount";
 import MainHeader from "../components/main-header";
-import { NavLink } from "../components/navLink";
+import { NavLink } from "../components/navlink";
 import { Select } from "../components/select";
 import DownloadReceipt from "../assets/icons/downloadReceipt.svg?react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ConfirmDialog from "../components/ui/confirmDialog";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRefund } from "../hooks/useRefund";
+import { getReceipt, deleteReceipt } from "../utils/indexedDB";
 
 function openBase64InNewTab(base64String: string) {
   try {
@@ -36,11 +37,23 @@ function openBase64InNewTab(base64String: string) {
 
 export function DetailsRefund() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [receiptBase64, setReceiptBase64] = useState<string | null>(null);
   const { id } = useParams();
   const { state, dispatch } = useRefund();
   const navigate = useNavigate();
 
   const refund = state.refunds.find((r) => r.id === id);
+
+  useEffect(() => {
+    if (refund?.receipt === "stored" && id) {
+      getReceipt(id).then((receipt) => {
+        if (receipt) {
+          setReceiptBase64(receipt);
+        }
+      });
+    }
+  }, [refund?.receipt, id]);
+
   if (!refund) {
     return <p>Refund not found</p>;
   }
@@ -71,8 +84,8 @@ export function DetailsRefund() {
               to=""
               onClick={(e) => {
                 e.preventDefault();
-                if (refund?.receipt && refund.receipt.trim()) {
-                  openBase64InNewTab(refund.receipt);
+                if (receiptBase64) {
+                  openBase64InNewTab(receiptBase64);
                 } else {
                   alert("No receipt available");
                 }
@@ -93,8 +106,12 @@ export function DetailsRefund() {
         title="Delete refund request"
         description="Are you sure you want to delete this refund request?"
         onCancel={() => setOpenDeleteModal(false)}
-        onConfirm={() => {
+        onConfirm={async () => {
           if (id) {
+            // Remove do IndexedDB se existir
+            if (refund.receipt === "stored") {
+              await deleteReceipt(id);
+            }
             dispatch({ type: "DELETE", payload: id });
           }
           setOpenDeleteModal(false);

@@ -9,31 +9,43 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { refundSchema, type RefundFormData } from "../schemas/refund.schema";
 import { useRefund } from "../hooks/useRefund";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { saveReceipt } from "../utils/indexedDB";
 
 export function NewRefund() {
   const navigate = useNavigate();
   const { dispatch } = useRefund();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [receiptBase64, setReceiptBase64] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(refundSchema),
   });
 
-  function onSubmit(data: RefundFormData) {
+  const categoryValue = watch("category");
+
+  async function onSubmit(data: RefundFormData) {
+    const refundId = crypto.randomUUID();
+
+    // Salva o arquivo em IndexedDB se existir
+    if (receiptBase64) {
+      await saveReceipt(refundId, receiptBase64);
+    }
+
     dispatch({
       type: "ADD",
       payload: {
-        id: crypto.randomUUID(),
+        id: refundId,
         name: data.requestName,
         category: data.category.toLowerCase(),
         amount: Number(data.amount),
-        receipt: data.receipt,
+        receipt: receiptBase64 ? "stored" : undefined, // Marca como armazenado em IndexedDB
         status: "pending",
         createdAt: new Date(),
       },
@@ -72,6 +84,7 @@ export function NewRefund() {
           <div className="flex gap-4 pt-12">
             <Select
               {...register("category")}
+              value={categoryValue}
               error={errors.category?.message}
             />
             <InputAmount
@@ -102,7 +115,8 @@ export function NewRefund() {
                   const reader = new FileReader();
                   reader.onload = (event) => {
                     const base64 = event.target?.result as string;
-                    setValue("receipt", base64);
+                    setReceiptBase64(base64);
+                    setValue("receipt", file.name);
                   };
                   reader.readAsDataURL(file);
                 }
