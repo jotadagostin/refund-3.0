@@ -10,6 +10,30 @@ import ConfirmDialog from "../components/ui/confirmDialog";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRefund } from "../hooks/useRefund";
 
+function openBase64InNewTab(base64String: string) {
+  try {
+    // Extrai o tipo de arquivo do data URL (ex: data:image/jpeg;base64,)
+    const arr = base64String.split(",");
+    const mimeMatch = arr[0].match(/:(.*?);/);
+    const mimeType = mimeMatch ? mimeMatch[1] : "application/octet-stream";
+
+    // Converte Base64 para Blob
+    const bstr = atob(arr[1]);
+    const n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    for (let i = 0; i < n; i++) {
+      u8arr[i] = bstr.charCodeAt(i);
+    }
+
+    const blob = new Blob([u8arr], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+  } catch (error) {
+    console.error("Erro ao abrir recibo:", error);
+    alert("Erro ao abrir o recibo");
+  }
+}
+
 export function DetailsRefund() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { id } = useParams();
@@ -17,6 +41,9 @@ export function DetailsRefund() {
   const navigate = useNavigate();
 
   const refund = state.refunds.find((r) => r.id === id);
+  if (!refund) {
+    return <p>Refund not found</p>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -40,7 +67,19 @@ export function DetailsRefund() {
           </div>
           <div className="pt-8 flex items-center justify-center gap-2">
             <DownloadReceipt />
-            <NavLink to="">Open receipt</NavLink>
+            <NavLink
+              to=""
+              onClick={(e) => {
+                e.preventDefault();
+                if (refund?.receipt && refund.receipt.trim()) {
+                  openBase64InNewTab(refund.receipt);
+                } else {
+                  alert("No receipt available");
+                }
+              }}
+            >
+              Open receipt
+            </NavLink>
           </div>
           <div className="pt-8 pb-6">
             <Button size="lg" onClick={() => setOpenDeleteModal(true)}>

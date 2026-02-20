@@ -99,8 +99,12 @@ export function NewRefund() {
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
-                  // atualiza o valor no react-hook-form
-                  setValue("receipt", file.name);
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const base64 = event.target?.result as string;
+                    setValue("receipt", base64);
+                  };
+                  reader.readAsDataURL(file);
                 }
               }}
             />
