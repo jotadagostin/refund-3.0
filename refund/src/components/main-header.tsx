@@ -13,7 +13,7 @@ export default function MainHeader() {
         </button>
       </div>
       <div className=" flex items-center space-x-4 gap-4  pb-2 ">
-        <NavLink to="/refund/detailsrefund">Refund requests</NavLink>
+        <NavLink to="/">Refund requests</NavLink>
         <Button size="sm" onClick={() => navigate("/refund/newrefund")}>
           New Request
         </Button>

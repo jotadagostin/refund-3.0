@@ -7,13 +7,14 @@ import { Select } from "../components/select";
 import DownloadReceipt from "../assets/icons/downloadReceipt.svg?react";
 import { useState } from "react";
 import ConfirmDialog from "../components/ui/confirmDialog";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRefund } from "../hooks/useRefund";
 
 export function DetailsRefund() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { id } = useParams();
   const { state, dispatch } = useRefund();
+  const navigate = useNavigate();
 
   const refund = state.refunds.find((r) => r.id === id);
 
@@ -58,6 +59,7 @@ export function DetailsRefund() {
             dispatch({ type: "DELETE", payload: id });
           }
           setOpenDeleteModal(false);
+          navigate("/");
         }}
       />
     </div>

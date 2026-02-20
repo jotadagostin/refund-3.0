@@ -91,14 +91,14 @@ export function Select({
   onClick,
   name,
   onChange,
+  value,
   ...props
 }: SelectProps) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<string | null>(null);
+  // const [value, setValue] = useState<string | null>(externalValue || null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSelectOption = (option: { label: string; value: string }) => {
-    setValue(option.value);
     setOpen(false);
 
     // Dispara onChange para react-hook-form
@@ -106,6 +106,7 @@ export function Select({
       const event = {
         target: { value: option.value, name },
       } as React.ChangeEvent<HTMLInputElement>;
+
       onChange(event);
     }
   };
