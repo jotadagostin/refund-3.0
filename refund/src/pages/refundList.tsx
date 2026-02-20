@@ -29,7 +29,7 @@ export default function RefundList() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    console.log("Página alterada para:", page);
+    // console.log("Página alterada para:", page);
   };
 
   return (

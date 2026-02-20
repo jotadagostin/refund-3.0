@@ -11,11 +11,6 @@ const navLink = tv({
   },
 });
 
-// type NavLinkProps = {
-//   to: string;
-//   children: React.ReactNode;
-// };
-
 type NavLinkProps = React.ComponentProps<typeof Link>;
 
 export function NavLink({
