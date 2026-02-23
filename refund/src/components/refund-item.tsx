@@ -32,11 +32,11 @@ export function RefundItem({ item }: RefundItemProps) {
   return (
     <div
       onClick={() => navigate(`/refund/${item.id}`)}
-      className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 rounded-lg transition-colors"
+      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-4 px-4 hover:bg-gray-50 rounded-lg transition-colors"
     >
-      {/* LADO ESQUERDO */}
+      {/* LEFT SIDE */}
       <div className="flex items-center gap-4 flex-1">
-        {/* Ícone */}
+        {/* ICON */}
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
           style={{ backgroundColor: "var(--gray-400)" }}
@@ -48,7 +48,7 @@ export function RefundItem({ item }: RefundItemProps) {
           />
         </div>
 
-        {/* Nome + Categoria */}
+        {/* NAME + CATEGORY */}
         <div className="flex-1">
           <p className="font-semibold text-gray-900">{item.name}</p>
           <p className="text-sm text-gray-500">{categoryLabel}</p>

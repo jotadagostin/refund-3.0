@@ -40,11 +40,11 @@ export default function RefundList() {
 
       <section className="flex-1 bg-(--gray-400) px-4 sm:px-8 lg:px-16 py-6 sm:py-8">
         <div className="w-full max-w-5xl mx-auto">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-8">
             <h1 className="text-(--gray-100) text-[20px] font-bold mb-6 ">
               {t("list.title")}
             </h1>
-            <div className="flex items-end gap-2  justify-center pb-5 border-b border-gray-200 ">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 justify-center pb-5 border-b border-gray-200 ">
               <Input
                 inputSize="md"
                 label=""
@@ -52,7 +52,7 @@ export default function RefundList() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <ButtonSearch size="sm" />
+              <ButtonSearch size="sm" className="w-full sm:w-auto" />
             </div>
             {filteredRefunds.length === 0 ? (
               search ? (
