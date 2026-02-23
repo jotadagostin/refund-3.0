@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "./input";
+import { useCurrency } from "../hooks/useCurrency";
 
 type InputAmountProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -13,21 +14,14 @@ type InputAmountProps = Omit<
 export const InputAmount = React.forwardRef<HTMLInputElement, InputAmountProps>(
   ({ label, value, onChange, ...props }, ref) => {
     const [displayValue, setDisplayValue] = React.useState("");
-
-    // Formata número para moeda
-    function formatCurrency(value: number) {
-      return new Intl.NumberFormat("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(value);
-    }
+    const { formatCurrency } = useCurrency();
 
     // Quando receber value externo
     React.useEffect(() => {
       if (typeof value === "number") {
         setDisplayValue(formatCurrency(value));
       }
-    }, [value]);
+    }, [value, formatCurrency]);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       const raw = e.target.value.replace(/\D/g, "");

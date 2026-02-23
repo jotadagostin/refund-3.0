@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useCurrency } from "../hooks/useCurrency";
 
 interface RefundItemProps {
   item: {
@@ -22,6 +23,7 @@ const categoryIcons: Record<string, string> = {
 
 export function RefundItem({ item }: RefundItemProps) {
   const { t } = useTranslation();
+  const { formatCurrency, getCurrencySymbol } = useCurrency();
   const iconUrl = categoryIcons[item.category] || categoryIcons.other;
   const navigate = useNavigate();
   const categoryLabel =
@@ -57,7 +59,7 @@ export function RefundItem({ item }: RefundItemProps) {
 
       {/* VALOR */}
       <div className="font-medium text-gray-800 whitespace-nowrap ml-4">
-        R$ {item.amount.toFixed(2)}
+        {getCurrencySymbol()} {formatCurrency(item.amount)}
       </div>
     </div>
   );
