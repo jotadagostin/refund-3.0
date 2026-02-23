@@ -6,19 +6,18 @@ import { NavLink } from "../components/navlink";
 import { Select } from "../components/select";
 import DownloadReceipt from "../assets/icons/downloadReceipt.svg?react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ConfirmDialog from "../components/ui/confirmDialog";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRefund } from "../hooks/useRefund";
 import { getReceipt, deleteReceipt } from "../utils/indexedDB";
 
-function openBase64InNewTab(base64String: string) {
+function openBase64InNewTab(base64String: string, errorMessage: string) {
   try {
-    // Extrai o tipo de arquivo do data URL (ex: data:image/jpeg;base64,)
     const arr = base64String.split(",");
     const mimeMatch = arr[0].match(/:(.*?);/);
     const mimeType = mimeMatch ? mimeMatch[1] : "application/octet-stream";
 
-    // Converte Base64 para Blob
     const bstr = atob(arr[1]);
     const n = bstr.length;
     const u8arr = new Uint8Array(n);
@@ -31,11 +30,12 @@ function openBase64InNewTab(base64String: string) {
     window.open(url, "_blank");
   } catch (error) {
     console.error("Erro ao abrir recibo:", error);
-    alert("Erro ao abrir o recibo");
+    alert(errorMessage);
   }
 }
 
 export function DetailsRefund() {
+  const { t } = useTranslation();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [receiptBase64, setReceiptBase64] = useState<string | null>(null);
   const { id } = useParams();
@@ -55,7 +55,7 @@ export function DetailsRefund() {
   }, [refund?.receipt, id]);
 
   if (!refund) {
-    return <p>Refund not found</p>;
+    return <p>{t("detailsRefund.notFound")}</p>;
   }
 
   return (
@@ -65,18 +65,18 @@ export function DetailsRefund() {
         <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-sm ">
           <div className="">
             <h2 className="text-2xl font-bold mb-6 text-(--gray-100)">
-              Refund request
+              {t("detailsRefund.title")}
             </h2>
             <p className="text-(--gray-200) text-sm">
-              Expense details for requesting reimbursement.
+              {t("detailsRefund.subtitle")}
             </p>
           </div>
           <div className="pt-10 ">
-            <Input label="Request name" value={refund?.name || ""} readOnly />
+            <Input label={t("detailsRefund.requestName")} value={refund?.name || ""} readOnly />
           </div>
           <div className="flex gap-4 pt-12">
             <Select value={refund?.category} />
-            <InputAmount label="Amount" value={refund?.amount || 0} readOnly />
+            <InputAmount label={t("detailsRefund.amount")} value={refund?.amount || 0} readOnly />
           </div>
           <div className="pt-8 flex items-center justify-center gap-2">
             <DownloadReceipt />
@@ -85,26 +85,26 @@ export function DetailsRefund() {
               onClick={(e) => {
                 e.preventDefault();
                 if (receiptBase64) {
-                  openBase64InNewTab(receiptBase64);
+                  openBase64InNewTab(receiptBase64, t("detailsRefund.errorOpeningReceipt"));
                 } else {
-                  alert("No receipt available");
+                  alert(t("detailsRefund.noReceiptAvailable"));
                 }
               }}
             >
-              Open receipt
+              {t("detailsRefund.openReceipt")}
             </NavLink>
           </div>
           <div className="pt-8 pb-6">
             <Button size="lg" onClick={() => setOpenDeleteModal(true)}>
-              Delete
+              {t("detailsRefund.delete")}
             </Button>
           </div>
         </div>
       </section>
       <ConfirmDialog
         open={openDeleteModal}
-        title="Delete refund request"
-        description="Are you sure you want to delete this refund request?"
+        title={t("detailsRefund.deleteTitle")}
+        description={t("detailsRefund.deleteDescription")}
         onCancel={() => setOpenDeleteModal(false)}
         onConfirm={async () => {
           if (id) {

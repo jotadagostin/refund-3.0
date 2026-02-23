@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Button from "../components/button";
 import { FileUploadButton } from "../components/fileUploadButton";
 import { Input } from "../components/input";
@@ -7,13 +8,14 @@ import MainHeader from "../components/main-header";
 import { Select } from "../components/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { refundSchema, type RefundFormData } from "../schemas/refund.schema";
+import { getRefundSchema, type RefundFormData } from "../schemas/refund.schema";
 import { useRefund } from "../hooks/useRefund";
 import { useRef, useState } from "react";
 import { saveReceipt } from "../utils/indexedDB";
 
 export function NewRefund() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { dispatch } = useRefund();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [receiptBase64, setReceiptBase64] = useState<string | null>(null);
@@ -25,7 +27,7 @@ export function NewRefund() {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(refundSchema),
+    resolver: zodResolver(getRefundSchema(t)),
   });
 
   const categoryValue = watch("category");
@@ -68,15 +70,15 @@ export function NewRefund() {
         >
           <div className="">
             <h2 className="text-2xl font-bold mb-6 text-(--gray-100) ">
-              New refund request
+              {t("newRefund.title")}
             </h2>
             <p className="text-(--gray-200) text-sm">
-              Expense details for requesting reimbursement.
+              {t("newRefund.subtitle")}
             </p>
           </div>
           <div className="pt-10 ">
             <Input
-              label="Request name"
+              label={t("newRefund.requestName")}
               {...register("requestName")}
               error={errors.requestName?.message}
             />
@@ -88,16 +90,16 @@ export function NewRefund() {
               error={errors.category?.message}
             />
             <InputAmount
-              label="Amount"
+              label={t("newRefund.amount")}
               {...register("amount")}
               error={errors.amount?.message}
             />
           </div>
           <div className="pt-6 flex items-end ">
             <Input
-              label="Receipt"
+              label={t("newRefund.receipt")}
               readOnly
-              placeholder="file name.pdf"
+              placeholder={t("newRefund.receiptPlaceholder")}
               {...register("receipt")}
               error={errors.receipt?.message}
               rightElement={
@@ -125,7 +127,7 @@ export function NewRefund() {
           </div>
           <div className="pt-6 pb-6">
             <Button size="lg" type="submit">
-              Send
+              {t("newRefund.send")}
             </Button>
           </div>
         </form>

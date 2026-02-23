@@ -1,0 +1,60 @@
+{
+  "header": {
+    "logoAlt": "Logo",
+    "refundRequests": "Refund requests",
+    "newRequest": "New Request"
+  },
+  "list": {
+    "title": "Requests",
+    "searchPlaceholder": "Search for the name",
+    "noResults": "No results found.",
+    "noRefundsYet": "No refund requests yet."
+  },
+  "newRefund": {
+    "title": "New refund request",
+    "subtitle": "Expense details for requesting reimbursement.",
+    "requestName": "Request name",
+    "amount": "Amount",
+    "receipt": "Receipt",
+    "receiptPlaceholder": "file name.pdf",
+    "send": "Send"
+  },
+  "detailsRefund": {
+    "title": "Refund request",
+    "subtitle": "Expense details for requesting reimbursement.",
+    "requestName": "Request name",
+    "amount": "Amount",
+    "openReceipt": "Open receipt",
+    "delete": "Delete",
+    "notFound": "Refund not found",
+    "deleteTitle": "Delete refund request",
+    "deleteDescription": "Are you sure you want to delete this refund request?",
+    "errorOpeningReceipt": "Error opening receipt",
+    "noReceiptAvailable": "No receipt available"
+  },
+  "requestSent": {
+    "title": "Request sent!",
+    "message": "Now just wait! Your request will be analyzed and the financial sector will contact you shortly.",
+    "newSolicitation": "New solicitation"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "select": "Select"
+  },
+  "categories": {
+    "food": "Food",
+    "accommodation": "Accommodation",
+    "transportation": "Transportation",
+    "services": "Services",
+    "other": "Other",
+    "tech": "Tech"
+  },
+  "validation": {
+    "requestNameRequired": "Request name is required",
+    "categoryRequired": "Select a category",
+    "amountRequired": "Amount is required",
+    "amountPositive": "Amount must be greater than 0",
+    "receiptRequired": "Receipt is required"
+  }
+}

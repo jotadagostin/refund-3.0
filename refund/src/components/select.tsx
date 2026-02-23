@@ -1,5 +1,6 @@
 // select.styles.ts
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { tv } from "tailwind-variants";
 
 const selectTrigger = tv({
@@ -69,14 +70,14 @@ const selectItem = tv({
   },
 });
 
-const options = [
-  { label: "Food", value: "food" },
-  { label: "Accommodation", value: "accommodation" },
-  { label: "Transportation", value: "transportation" },
-  { label: "Services", value: "services" },
-  { label: "Other", value: "other" },
-  { label: "Tech", value: "tech" },
-];
+const CATEGORY_KEYS = [
+  "food",
+  "accommodation",
+  "transportation",
+  "services",
+  "other",
+  "tech",
+] as const;
 
 interface SelectProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -94,9 +95,14 @@ export function Select({
   value,
   ...props
 }: SelectProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState<string | null>(externalValue || null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const options = CATEGORY_KEYS.map((key) => ({
+    label: t(`categories.${key}`),
+    value: key,
+  }));
 
   const handleSelectOption = (option: { label: string; value: string }) => {
     setOpen(false);
@@ -159,7 +165,7 @@ export function Select({
           hasValue: !!value,
         })}
       >
-        {options.find((option) => option.value === value)?.label ?? "Select"}
+        {options.find((option) => option.value === value)?.label ?? t("common.select")}
         <span>{open ? "▲" : "▼"}</span>
       </button>
 

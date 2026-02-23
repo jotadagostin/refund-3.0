@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface RefundItemProps {
   item: {
@@ -20,8 +21,13 @@ const categoryIcons: Record<string, string> = {
 };
 
 export function RefundItem({ item }: RefundItemProps) {
+  const { t } = useTranslation();
   const iconUrl = categoryIcons[item.category] || categoryIcons.other;
   const navigate = useNavigate();
+  const categoryLabel =
+    item.category in categoryIcons
+      ? t(`categories.${item.category}`)
+      : item.category;
 
   return (
     <div
@@ -45,7 +51,7 @@ export function RefundItem({ item }: RefundItemProps) {
         {/* Nome + Categoria */}
         <div className="flex-1">
           <p className="font-semibold text-gray-900">{item.name}</p>
-          <p className="text-sm text-gray-500 capitalize">{item.category}</p>
+          <p className="text-sm text-gray-500">{categoryLabel}</p>
         </div>
       </div>
 

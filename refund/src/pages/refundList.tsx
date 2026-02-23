@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ButtonSearch } from "../components/buttonSearch";
 import { Input } from "../components/input";
 import MainHeader from "../components/main-header";
@@ -7,6 +8,7 @@ import { RefundPagination } from "../components/refund-pagination";
 import { useRefund } from "../hooks/useRefund";
 
 export default function RefundList() {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const { state } = useRefund();
@@ -40,13 +42,13 @@ export default function RefundList() {
         <div className="w-full max-w-5xl mx-auto">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
             <h1 className="text-(--gray-100) text-[20px] font-bold mb-6 ">
-              Requests
+              {t("list.title")}
             </h1>
             <div className="flex items-end gap-2  justify-center pb-5 border-b border-gray-200 ">
               <Input
                 inputSize="md"
                 label=""
-                placeholder="Search for the name"
+                placeholder={t("list.searchPlaceholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -55,11 +57,11 @@ export default function RefundList() {
             {filteredRefunds.length === 0 ? (
               search ? (
                 <div className="mt-6 text-center text-gray-500">
-                  No results found.
+                  {t("list.noResults")}
                 </div>
               ) : (
                 <div className="mt-6 text-center text-gray-500">
-                  No refund requests yet.
+                  {t("list.noRefundsYet")}
                 </div>
               )
             ) : (

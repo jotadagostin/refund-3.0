@@ -1,0 +1,60 @@
+{
+  "header": {
+    "logoAlt": "Logo",
+    "refundRequests": "Pedidos de reembolso",
+    "newRequest": "Nova solicitação"
+  },
+  "list": {
+    "title": "Solicitações",
+    "searchPlaceholder": "Buscar pelo nome",
+    "noResults": "Nenhum resultado encontrado.",
+    "noRefundsYet": "Ainda não há pedidos de reembolso."
+  },
+  "newRefund": {
+    "title": "Nova solicitação de reembolso",
+    "subtitle": "Detalhes da despesa para solicitar reembolso.",
+    "requestName": "Nome da solicitação",
+    "amount": "Valor",
+    "receipt": "Recibo",
+    "receiptPlaceholder": "arquivo.pdf",
+    "send": "Enviar"
+  },
+  "detailsRefund": {
+    "title": "Solicitação de reembolso",
+    "subtitle": "Detalhes da despesa para solicitar reembolso.",
+    "requestName": "Nome da solicitação",
+    "amount": "Valor",
+    "openReceipt": "Abrir recibo",
+    "delete": "Excluir",
+    "notFound": "Reembolso não encontrado",
+    "deleteTitle": "Excluir solicitação de reembolso",
+    "deleteDescription": "Tem certeza que deseja excluir esta solicitação de reembolso?",
+    "errorOpeningReceipt": "Erro ao abrir o recibo",
+    "noReceiptAvailable": "Recibo não disponível"
+  },
+  "requestSent": {
+    "title": "Solicitação enviada!",
+    "message": "Agora é só aguardar! Sua solicitação será analisada e o setor financeiro entrará em contato em breve.",
+    "newSolicitation": "Nova solicitação"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "select": "Selecionar"
+  },
+  "categories": {
+    "food": "Alimentação",
+    "accommodation": "Hospedagem",
+    "transportation": "Transporte",
+    "services": "Serviços",
+    "other": "Outros",
+    "tech": "Tecnologia"
+  },
+  "validation": {
+    "requestNameRequired": "Nome da solicitação é obrigatório",
+    "categoryRequired": "Selecione uma categoria",
+    "amountRequired": "Valor é obrigatório",
+    "amountPositive": "Valor deve ser maior que zero",
+    "receiptRequired": "Recibo é obrigatório"
+  }
+}
