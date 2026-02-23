@@ -83,7 +83,7 @@ export function NewRefund() {
               error={errors.requestName?.message}
             />
           </div>
-          <div className="flex gap-4 pt-12">
+          <div className="flex flex-col sm:flex-row gap-4 pt-12">
             <Select
               {...register("category")}
               value={categoryValue}
