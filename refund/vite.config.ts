@@ -5,5 +5,6 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
+   base: "/refund-3.0/",
   plugins: [react(), tailwindcss(), svgr()],
 });
