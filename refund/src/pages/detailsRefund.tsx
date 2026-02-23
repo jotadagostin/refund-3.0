@@ -72,11 +72,19 @@ export function DetailsRefund() {
             </p>
           </div>
           <div className="pt-10 ">
-            <Input label={t("detailsRefund.requestName")} value={refund?.name || ""} readOnly />
+            <Input
+              label={t("detailsRefund.requestName")}
+              value={refund?.name || ""}
+              readOnly
+            />
           </div>
-          <div className="flex gap-4 pt-12">
+          <div className="flex flex-col sm:flex-row gap-4 pt-12">
             <Select value={refund?.category} />
-            <InputAmount label={t("detailsRefund.amount")} value={refund?.amount || 0} readOnly />
+            <InputAmount
+              label={t("detailsRefund.amount")}
+              value={refund?.amount || 0}
+              readOnly
+            />
           </div>
           <div className="pt-8 flex items-center justify-center gap-2">
             <DownloadReceipt />
@@ -85,7 +93,10 @@ export function DetailsRefund() {
               onClick={(e) => {
                 e.preventDefault();
                 if (receiptBase64) {
-                  openBase64InNewTab(receiptBase64, t("detailsRefund.errorOpeningReceipt"));
+                  openBase64InNewTab(
+                    receiptBase64,
+                    t("detailsRefund.errorOpeningReceipt"),
+                  );
                 } else {
                   alert(t("detailsRefund.noReceiptAvailable"));
                 }

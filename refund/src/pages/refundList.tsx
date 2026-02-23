@@ -38,7 +38,7 @@ export default function RefundList() {
     <div className="flex flex-col min-h-screen">
       <MainHeader />
 
-      <section className="flex-1 bg-(--gray-400) px-16 py-8">
+      <section className="flex-1 bg-(--gray-400) px-4 sm:px-8 lg:px-16 py-6 sm:py-8">
         <div className="w-full max-w-5xl mx-auto">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
             <h1 className="text-(--gray-100) text-[20px] font-bold mb-6 ">
